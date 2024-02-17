@@ -8,7 +8,7 @@ function main() {
   command
     .name("ntdk-uii")
     .description("add components and dependencies to your project")
-    .version("0.0.4");
+    .version("0.0.5");
 
   command.addCommand(init).addCommand(add);
 
