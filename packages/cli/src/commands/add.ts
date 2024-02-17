@@ -45,8 +45,10 @@ export const add = new Command()
         process.exit(1);
       }
 
+      const allComponentsFetched = await allComponents();
+
       let selectedComponents = options.all
-        ? allComponents()
+        ? allComponentsFetched
         : options.components;
 
       if (!options.components?.length && !options.all) {
@@ -56,7 +58,7 @@ export const add = new Command()
           message: "Which components would you like to add ?",
           hint: "Space to select. A to toggle all. Enter to submit.",
           instructions: false,
-          choices: allComponents().map((component) => ({
+          choices: allComponentsFetched.map((component: any) => ({
             title: component,
             value: component,
           })),
