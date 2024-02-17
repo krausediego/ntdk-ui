@@ -75,7 +75,7 @@ export async function runInit(cwd: string) {
     [
       packageCommand,
       ...DEV_DEPENDENCIES,
-      packageManager === "npm" ? "--save-dev" : "--dev",
+      packageManager === "npm" ? "--save-dev" : "-D",
     ],
     { cwd }
   );
