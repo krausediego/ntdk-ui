@@ -6,9 +6,9 @@ function main() {
   const command = new Command();
 
   command
-    .name("ntdk-uii")
-    .description("add components and dependencies to your project")
-    .version("0.0.8");
+    .name("ntdk-ui")
+    .description("Add components and dependencies to your project")
+    .version("0.1.4");
 
   command.addCommand(init).addCommand(add);
 
