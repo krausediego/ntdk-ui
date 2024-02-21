@@ -2,6 +2,7 @@ export const TAILWIND_CONFIG = `const { hairlineWidth } = require('nativewind/th
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './src/**/*.{ts,tsx,js,jsx}'
   ],
@@ -69,7 +70,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };`;
 
 export const BABEL_CONFIG_49 = `module.exports = function (api) {
@@ -207,7 +208,11 @@ import "../global.css";
 colorScheme.set("dark");
 
 export default function RootLayout() {
-  return <Slot />;
+  return (
+    <>
+      <Slot />
+    </>
+  );
 }
 `;
 
@@ -215,8 +220,8 @@ export const INDEX = `import { Text, View } from "react-native";
 
 export default function testeIndex() {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text>NTDK-UI</Text>
+    <View className="flex-1 justify-center items-center bg-muted">
+      <Text className="text-muted-foreground text-5xl">NTDK-UI</Text>
     </View>
   );
 }

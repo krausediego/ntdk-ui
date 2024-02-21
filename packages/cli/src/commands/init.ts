@@ -14,7 +14,7 @@ import { getPackageManager } from "../utils/get-package-manager";
 const DEPENDENCIES = [
   "tailwind-variants",
   "clsx",
-  "nativewind@^4.0.1",
+  "nativewind@~4.0.1",
   "tailwind-merge",
   "react-native-reanimated@~3.6.2",
   "expo-router",
@@ -30,7 +30,7 @@ const DEPENDENCIES_SDK_49 = ["react-native-gesture-handler"];
 
 const DEPENDENCIES_USING_WEB = ["react-native-web", "react-dom"];
 
-const DEV_DEPENDENCIES = ["tailwindcss"];
+const DEV_DEPENDENCIES = ["tailwindcss@3.4.1"];
 
 const initOptionsSchema = z.object({
   cwd: z.string(),
@@ -70,16 +70,6 @@ export async function selectConfig(cwd: string) {
     const options = await prompts([
       {
         type: "toggle",
-        name: "typescript",
-        message: `Would you like to use ${highlight(
-          "typescript"
-        )} ? (recommended)`,
-        initial: true,
-        active: "yes",
-        inactive: "no",
-      },
-      {
-        type: "toggle",
         name: "expo",
         message: `Would you like to use ${highlight(
           "EXPO"
@@ -94,12 +84,12 @@ export async function selectConfig(cwd: string) {
         message: "What version of the Expo SDK are you using?",
         choices: [
           {
-            title: "SDK 49",
-            value: 49,
-          },
-          {
             title: "SDK 50+",
             value: 50,
+          },
+          {
+            title: "SDK 49",
+            value: 49,
           },
         ],
       },
@@ -126,9 +116,7 @@ export async function selectConfig(cwd: string) {
 
 export async function runInit(
   cwd: string,
-  options:
-    | prompts.Answers<"typescript" | "expo" | "expoVersion" | "expoWeb">
-    | undefined
+  options: prompts.Answers<"expo" | "expoVersion" | "expoWeb"> | undefined
 ) {
   const spinner = ora(`Initializing project...`)?.start();
 
