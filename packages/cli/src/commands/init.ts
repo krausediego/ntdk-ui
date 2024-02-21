@@ -16,8 +16,19 @@ const DEPENDENCIES = [
   "clsx",
   "nativewind@^4.0.1",
   "tailwind-merge",
-  "react-native-reanimated",
+  "react-native-reanimated@~3.6.2",
+  "expo-router",
+  "react-native-safe-area-context",
+  "react-native-screens",
+  "expo-linking",
+  "expo-constants",
+  "expo-status-bar",
+  "tailwindcss-animate",
 ];
+
+const DEPENDENCIES_SDK_49 = ["react-native-gesture-handler"];
+
+const DEPENDENCIES_USING_WEB = ["react-native-web", "react-dom"];
 
 const DEV_DEPENDENCIES = ["tailwindcss"];
 
@@ -100,14 +111,6 @@ export async function selectConfig(cwd: string) {
         active: "yes",
         inactive: "no",
       },
-      {
-        type: "toggle",
-        name: "expoRouter",
-        message: "Does your expo project use the expo-router? (recommended)",
-        initial: true,
-        active: "yes",
-        inactive: "no",
-      },
     ]);
 
     if (!options.expo) {
@@ -124,9 +127,7 @@ export async function selectConfig(cwd: string) {
 export async function runInit(
   cwd: string,
   options:
-    | prompts.Answers<
-        "typescript" | "expo" | "expoVersion" | "expoWeb" | "expoRouter"
-      >
+    | prompts.Answers<"typescript" | "expo" | "expoVersion" | "expoWeb">
     | undefined
 ) {
   const spinner = ora(`Initializing project...`)?.start();
@@ -138,7 +139,19 @@ export async function runInit(
 
   const dependenciesSpinner = ora("Installing dependencies...")?.start();
 
-  await execa(packageManager, [packageCommand, ...DEPENDENCIES], { cwd });
+  await execa("npx", ["expo", "install", ...DEPENDENCIES], {
+    cwd,
+  });
+  if (options?.expoVersion === 49) {
+    await execa("npx", ["expo", "install", ...DEPENDENCIES_SDK_49], {
+      cwd,
+    });
+  }
+  if (options?.expoWeb) {
+    await execa("npx", ["expo", "install", ...DEPENDENCIES_USING_WEB], {
+      cwd,
+    });
+  }
   await execa(
     packageManager,
     [
@@ -150,6 +163,14 @@ export async function runInit(
   );
   await execa("npx", ["tailwindcss", "init"], { cwd });
   await execa("npx", ["expo", "customize", "metro.config.js"]);
+
+  if (!existsSync(`${cwd}/src`)) {
+    await fs.mkdir(`${cwd}/src`, { recursive: true });
+  }
+
+  if (!existsSync(`${cwd}/src/app`)) {
+    await fs.mkdir(`${cwd}/src/app`, { recursive: true });
+  }
 
   await fs.writeFile(
     `${cwd}/nativewind-env.d.ts`,
@@ -183,11 +204,11 @@ export async function runInit(
     "utf-8"
   );
 
-  if (!existsSync(`${cwd}/src`)) {
-    await fs.mkdir(`${cwd}/src`, { recursive: true });
-  }
-
   await fs.writeFile(`${cwd}/src/global.css`, templates.CSS_GLOBAL, "utf-8");
+
+  await fs.writeFile(`${cwd}/src/app/_layout.tsx`, templates.LAYOUT, "utf-8");
+
+  await fs.writeFile(`${cwd}/src/app/index.tsx`, templates.INDEX, "utf-8");
 
   dependenciesSpinner?.succeed();
 }

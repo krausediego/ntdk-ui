@@ -1,9 +1,8 @@
-export const TAILWIND_CONFIG = `/** @type {import('tailwindcss').Config} */
+export const TAILWIND_CONFIG = `const { hairlineWidth } = require('nativewind/theme');
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './App.{ts,tsx,js,jsx}',
-    './components/**/*.{ts,tsx,js,jsx}',
-    './app/**/*.{ts,tsx,js,jsx}',
     './src/**/*.{ts,tsx,js,jsx}'
   ],
   presets: [require("nativewind/preset")],
@@ -102,14 +101,14 @@ const { withNativeWind } = require('nativewind/metro');
 
 const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
 
-module.exports = withNativeWind(config, { input: './global.css' })`;
+module.exports = withNativeWind(config, { input: './src/global.css' })`;
 
 export const METRO_CONFIG_50 = `const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require('nativewind/metro');
 
 const config = getDefaultConfig(__dirname)
 
-module.exports = withNativeWind(config, { input: './global.css' })`;
+module.exports = withNativeWind(config, { input: './src/global.css' })`;
 
 export const UTILS = `import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -198,5 +197,27 @@ export const CSS_GLOBAL = `@tailwind base;
   body {
     @apply bg-background text-foreground;
   }
+}
+`;
+
+export const LAYOUT = `import { Slot } from "expo-router";
+import { colorScheme } from "nativewind";
+import "../global.css";
+
+colorScheme.set("dark");
+
+export default function RootLayout() {
+  return <Slot />;
+}
+`;
+
+export const INDEX = `import { Text, View } from "react-native";
+
+export default function testeIndex() {
+  return (
+    <View className="flex-1 justify-center items-center">
+      <Text>NTDK-UI</Text>
+    </View>
+  );
 }
 `;
