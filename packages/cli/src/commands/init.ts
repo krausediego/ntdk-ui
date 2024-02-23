@@ -160,6 +160,10 @@ export async function runInit(
     await fs.mkdir(`${cwd}/src/app`, { recursive: true });
   }
 
+  if (!existsSync(`${cwd}/src/lib`)) {
+    await fs.mkdir(`${cwd}/src/lib`, { recursive: true });
+  }
+
   await fs.writeFile(
     `${cwd}/nativewind-env.d.ts`,
     `/// <reference types="nativewind/types" />`,
@@ -182,8 +186,8 @@ export async function runInit(
     "utf-8"
   );
 
-  if (existsSync(`${cwd}/lib/utils.ts`)) {
-    await fs.writeFile(`${cwd}/lib/utils.ts`, templates.UTILS, "utf-8");
+  if (!existsSync(`${cwd}/src/lib/utils.ts`)) {
+    await fs.writeFile(`${cwd}/src/lib/utils.ts`, templates.UTILS, "utf-8");
   }
 
   await fs.writeFile(
