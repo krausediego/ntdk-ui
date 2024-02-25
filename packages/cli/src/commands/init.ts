@@ -24,6 +24,7 @@ const DEPENDENCIES = [
   "expo-constants",
   "expo-status-bar",
   "tailwindcss-animate",
+  "lucide-react-native",
 ];
 
 const DEPENDENCIES_SDK_49 = ["react-native-gesture-handler"];
