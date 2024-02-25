@@ -4,13 +4,13 @@ import { cn } from "../lib/utils";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const badgeVariants = tv({
-  base: "flex flex-row items-center rounded-md border px-2 py-1",
+  base: "flex flex-row items-center rounded-md px-2 py-1",
   variants: {
     variant: {
       default: "bg-primary",
       secondary: "bg-secondary",
       destructive: "bg-destructive",
-      outline: "border-border bg-background",
+      outline: "border border-border bg-background",
     },
   },
   defaultVariants: {

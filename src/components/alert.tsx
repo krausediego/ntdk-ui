@@ -4,7 +4,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/utils";
 
 const alertVariants = tv({
-  base: "relative w-full rounded-lg border border-border px-4 py-3 text-sm",
+  base: "relative w-auto rounded-lg border border-border px-4 py-3 text-sm",
   variants: {
     variant: {
       default: "bg-background",

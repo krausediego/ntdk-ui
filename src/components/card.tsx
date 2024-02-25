@@ -10,10 +10,7 @@ const Card = React.forwardRef<
   return (
     <View
       ref={ref}
-      className={cn(
-        "rounded-xl border border-border bg-card shadow",
-        className
-      )}
+      className={cn("rounded-xl border border-border bg-card", className)}
       {...props}
     />
   );
@@ -69,7 +66,7 @@ const CardContent = React.forwardRef<
   View,
   React.ComponentPropsWithoutRef<typeof View>
 >(({ className, ...props }, ref) => {
-  return <View ref={ref} className={cn("pt-4", className)} {...props} />;
+  return <View ref={ref} className={cn("p-4", className)} {...props} />;
 });
 CardContent.displayName = "CardContent";
 
@@ -77,7 +74,7 @@ const CardFooter = React.forwardRef<
   View,
   React.ComponentPropsWithoutRef<typeof View>
 >(({ className, ...props }, ref) => {
-  return <View ref={ref} className={cn("pt-4", className)} {...props} />;
+  return <View ref={ref} className={cn("p-4", className)} {...props} />;
 });
 CardFooter.displayName = "CardFooter";
 
