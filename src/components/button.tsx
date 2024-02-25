@@ -71,13 +71,17 @@ interface ButtonProps
 }
 
 const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
-  ({ children, variant, size, className, activeOpacity = 0.7 }, ref) => {
+  (
+    { children, variant, size, className, activeOpacity = 0.7, ...props },
+    ref
+  ) => {
     return (
       <ButtonContext.Provider value={{ variant, size }}>
         <TouchableOpacity
+          ref={ref}
           activeOpacity={activeOpacity}
           className={cn(buttonVariants({ variant, size }), className)}
-          ref={ref}
+          {...props}
         >
           {children}
         </TouchableOpacity>
