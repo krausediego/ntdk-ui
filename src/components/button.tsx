@@ -12,6 +12,7 @@ const buttonVariants = tv({
       default: "bg-primary hover:bg-primary/90",
       secondary: "bg-secondary hover:bg-secondary/90",
       destructive: "bg-destructive hover:bg-destructive/90",
+      outline: "border border-input bg-background",
       ghost: "hover:bg-accent",
       link: " hover:underline",
     },
@@ -19,6 +20,7 @@ const buttonVariants = tv({
       default: "h-10 px-4",
       sm: "h-8 px-2",
       lg: "h-12 px-8",
+      icon: "h-9 w-9",
     },
   },
   defaultVariants: {
@@ -34,6 +36,7 @@ const buttonTextVariants = tv({
       default: "text-primary-foreground",
       secondary: "text-secondary-foreground",
       destructive: "text-destructive-foreground",
+      outline: "text-accent",
       ghost: "text-accent-foreground",
       link: "text-primary underline underline-offset-4",
     },
@@ -41,6 +44,7 @@ const buttonTextVariants = tv({
       default: "text-base",
       sm: "text-sm",
       lg: "text-xl",
+      icon: "hidden",
     },
   },
   defaultVariants: {
@@ -64,7 +68,7 @@ const ButtonContext = React.createContext<ButtonContextValue>(
   {} as ButtonContextValue
 );
 
-interface ButtonProps
+export interface ButtonProps
   extends React.ComponentPropsWithoutRef<typeof TouchableOpacity>,
     VariantProps<typeof buttonVariants> {
   children: React.ReactNode;
